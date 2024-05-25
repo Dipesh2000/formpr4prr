@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookStore</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fff3cd;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .navbar {
+            background-color: #dc3545;
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: white !important;
+        }
+
+        .search-section {
+            background: linear-gradient(135deg, #ec9f0e, #d38e0d);
+            color: white;
+        }
+
+        .search-section h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .add-book-section {
+            background: linear-gradient(135deg, #dd9b0e, #c79816);
+            color: white;
+        }
+
+        .add-book-section h2 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .add-book-section form {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            border: 2px solid #dc3545;
+        }
+
+        .btn-primary {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #a71d2a;
+            border-color: #a71d2a;
+        }
+
+        .books-section .card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .books-section .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .books-section .btn-outline-secondary {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+
+        .books-section .btn-outline-secondary:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .books-section .btn-primary {
+            background-color: #ec9f0e;
+            border-color: #ec9f0e;
+        }
+
+        .books-section .btn-primary:hover {
+            background-color: #d38e0d;
+            border-color: #d38e0d;
+        }
+
+        footer {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">BookStore</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="add-book-section py-5">
+            <div class="container">
+                <h2 class="text-center mb-4">Add A New Book</h2>
+                <form action="/insertData" method="post" class="col-12 col-md-8 mx-auto">
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="text" class="form-control" name="image" placeholder="Please insert image link"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" name="title" placeholder="Enter title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Author</label>
+                        <input type="text" class="form-control" name="author" placeholder="Enter author" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="isbn">ISBN</label>
+                        <input type="number" class="form-control" name="ISBN" placeholder="Enter ISBN Number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" class="form-control" name="price" placeholder="Enter price" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </section>
+        <section class="books-section py-5">
+            <div class="container">
+                <div class="row">
+                    <% bookstore.forEach(function(book) { %>
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card">
+                                <img src="<%= book.image %>" class="card-img-top" alt="Book Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%= book.title %>
+                                    </h5>
+                                    <p class="card-text">Author: <%= book.author %>
+                                    </p>
+                                    <p class="card-text text-muted">ISBN: <%= book.ISBN %>
+                                    </p>
+                                    <p class="card-text text-muted">Price: <%= book.price %>
+                                    </p>
+                                    <form id="deleteForm_<%= book._id %>" class="delete-form" action="/deleteData" method="POST" style="display: inline;">
+                                        <input type="hidden" name="id" value="<%= book._id %>">
+                                        <button type="button" class="btn btn-outline-secondary delete-btn">Delete</button>
+                                    </form>
+                                    <a href="/editData?id=<%=book._id%>" class="btn btn-primary">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                        <% }); %>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-light py-4">
+        <div class="container text-center">
+            <p>435 Tresdale Road, Entertainment District, Fictional City, XA 27402</p>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

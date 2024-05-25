@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+}
+
+.navbar-brand {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.navbar-nav a {
+    font-size: 1.2rem;
+}
+
+.search-section {
+    background: linear-gradient(135deg, #ec9f0e, #d38e0d);
+    color: white;
+    padding: 50px 0;
+}
+
+.books-section {
+    padding: 50px 0;
+}
+
+.card {
+    margin-bottom: 30px;
+}
+
+.add-book-section {
+    padding: 50px 0;
+}
+
+.form-control {
+    border-radius: 0;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+footer {
+    padding: 20px 0;
+    background-color: #f5f7fa;
+    color: #333;
+    text-align: center;
+}
